@@ -1,0 +1,42 @@
+
+.textLabel{
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.textInput{
+    width: 80vw;
+    height: 200px;
+}
+.functionArea{
+    height: 50px;
+}
+.different{
+    color:red;
+}
+
+#msg_01{
+    color:gray;
+    font-weight: 600;
+}
+
+#errMsg{
+    color:red;
+    font-weight: 600;
+}
+
+#noErrMsg{
+    color: rgb(146, 212, 45);
+    font-weight: 600;
+}
+
+#startCompare{
+    width: 200px;
+    height: 50px;
+}
+#functionArea{
+    margin-bottom: 20px;   
+    margin-top: 20px;
+}
