@@ -9,30 +9,70 @@ let eErrorOutput = document.querySelector('#errMsg');
 let existNewLine = false; //개행문자의 여부
 let existSpace = false; // 띄어쓰기 여부
 
-compareButton.addEventListener('click',(e)=>{
+let eIgnoreNewLine = document.querySelector('#bIgnoreNewLine');
+let eIgnoreSpace = document.querySelector('#bIgnoreSpace');
+let ignoreNewLine = false;
+let ignoreSpace = false;
+let eClear = document.querySelector('#eClear');
 
-    //let eStrOrigin = document.querySelector('#strOrigin');
-    //let eStrCompare = document.querySelector('#strCompare');
-
-    compareText(eStrOrigin,eStrCompare);
-})
-/*
-eStrCompare.addEventListener('keyup',(e)=>{
-    if(e.keyCode ===13)
-    {
-        // 엔터를 누른다면
-        compareText(eStrOrigin,eStrCompare);
+eIgnoreNewLine.addEventListener('click',(e)=>{
+    //alert(e.target.checked)
+    ignoreNewLine = e.target.checked; // true  시 개행문자 무시
+    if(ignoreNewLine)
+    {   // 개행문자를 제외하여 다시 입력값으로 넣기
+        eStrCompare.value = textConverter_ignoreChar('\n',eStrCompare.value);
+        eStrOrigin.value = textConverter_ignoreChar('\n',eStrOrigin.value);
     }
+});
+eIgnoreSpace.addEventListener('click',(e)=>{
+    ignoreSpace = e.target.checked; // true 시 띄어쓰기 무시
+    if(ignoreSpace)
+    {   // 띄어쓰기를 제외하여 다시 입력값으로 넣기
+        eStrCompare.value = textConverter_ignoreChar(' ',eStrCompare.value);
+        eStrOrigin.value = textConverter_ignoreChar(' ',eStrOrigin.value);
+    }
+
 })
+eClear.addEventListener('click',(e)=>{
+    eStrCompare.value = '';
+    eStrOrigin.value='';
+    eOutput.textContent='';
+    eErrorOutput.textContent='';
+    textCounting();
+})
+
+
+/** 입력 옵션  */
 
 eStrOrigin.addEventListener('keyup',(e)=>{
-    if(e.keyCode===13)
-    {
-        // 엔터를 누른다면
-        compareText(eStrOrigin,eStrCompare);
-    }
+    //개행문자 무시 모드
+    if(ignoreNewLine){eStrOrigin.value = textConverter_ignoreChar('\n',eStrOrigin.value);}
+    // 띄어쓰기 무시 모드
+    if(ignoreSpace){eStrOrigin.value = textConverter_ignoreChar(' ',eStrOrigin.value);}
+    
+    compareText(eStrOrigin,eStrCompare);
+    textCounting();
 })
-*/
+
+
+eStrCompare.addEventListener('keyup',(e)=>{
+    // 개행문자 무시 모드
+    if(ignoreNewLine){eStrCompare.value = textConverter_ignoreChar('\n',eStrCompare.value);}
+    // 띄어쓰기 무시모드
+    if(ignoreSpace){eStrCompare.value = textConverter_ignoreChar(' ',eStrCompare.value);}
+
+    compareText(eStrOrigin,eStrCompare);
+    textCounting();
+})
+
+
+
+compareButton.addEventListener('click',(e)=>{
+    // 비교 시작!
+    compareText(eStrOrigin,eStrCompare);
+    textCounting();
+})
+
 
 function compareText(eStrOrigin,eStrCompare){
 
@@ -81,6 +121,8 @@ function compareText(eStrOrigin,eStrCompare){
         a = a+c;
         return a
     },''));
+
+    textCounting()
   
 }
 
@@ -112,3 +154,28 @@ function errClear()
     eErrorOutput.textContent = '틀린문자가 없습니다.';
 }
 
+/**
+ * 문장에서 특정 문자열 제외
+ */
+function textConverter_ignoreChar(char,str)
+{
+    let arrStr = [...str]; // 배열화
+    let result = [];
+    
+    result = arrStr
+    .filter((elem)=>{
+        return elem === char ? false : true;
+    })
+    .reduce((a,c)=>{a= a+c; return a},'')
+
+    return result;
+}
+
+function textCounting()
+{
+    let countOriginText = document.querySelector('#eOriginTextCount');
+    countOriginText.textContent=`(문자개수 : ${eStrOrigin.value.length})`;
+
+    let countCompareText = document.querySelector('#eCompareTextCount');
+    countCompareText.textContent=`(문자개수 : ${eStrCompare.value.length})`;
+}

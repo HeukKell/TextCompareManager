@@ -11,16 +11,21 @@
 <body>
 
     <div>
-        <label class="textLabel" for="">원본 문장</label>
+        <div><label class="textLabel" for="">원본 문장</label><label class="textCount" id="eOriginTextCount">(문자개수 : 0)</label></div>
+        
         <textarea class="textInput"name="" id="strOrigin" placeholder="원본문장을 넣어주세요"></textarea>
     </div>
     
     <div>
-        <label class="textLabel" for="">비교할 문장</label>
+        <div><label class="textLabel" for="">비교할 문장</label><label class="textCount" id="eCompareTextCount">(문자개수 : 0)</label></div>
+        
         <textarea class="textInput"name="" id="strCompare" placeholder="비교할 문장을 넣어주세요"></textarea>
     </div>
     <div id="functionArea">
         <input type="button" id="startCompare" value="비교 시작">
+        <input type="checkbox" name="eIgnoreNewLine" id="bIgnoreNewLine"><label class="textOption">줄바꿈 무시</label>
+        <input type="checkbox" name="eIgnoreSpace" id="bIgnoreSpace"><label class="textOption">띄어쓰기 무시</label>
+        <input type="button" id="eClear" value="문장지우기">
     </div>
     
     <div>

@@ -1,9 +1,14 @@
 
 .textLabel{
-    display: block;
-    font-weight: 600;
+    display: inline-block;
+    font-weight: 800;
     margin-bottom: 10px;
     margin-top: 10px;
+}
+
+.textCount{
+    margin-left: 20px;
+    color: rgb(187, 187, 187);
 }
 
 .textInput{
@@ -39,4 +44,18 @@
 #functionArea{
     margin-bottom: 20px;   
     margin-top: 20px;
+}
+/* 
+#output{
+    display: inline-block;
+    background-color: bisque;
+    width: 500px;
+
+} */
+
+#eClear{
+    margin-left: 50px;
+    width: 200px;
+    height: 50px;
+    
 }
